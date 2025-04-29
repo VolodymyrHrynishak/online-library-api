@@ -51,5 +51,5 @@ class BooksController < ApplicationController
       params.expect(book: [ :title, :author, :description ])
     end
 end
-end
+  end
 end

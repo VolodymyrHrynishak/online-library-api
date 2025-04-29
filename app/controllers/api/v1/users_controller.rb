@@ -51,5 +51,5 @@ class UsersController < ApplicationController
       params.expect(user: [ :name, :email ])
     end
 end
-end
+  end
 end
