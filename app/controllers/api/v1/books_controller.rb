@@ -1,6 +1,6 @@
 module Api
   module V1
-class BooksController < ApplicationController
+class BooksController < APIController
   before_action :set_book, only: %i[ show update destroy ]
 
   # GET /books
@@ -20,7 +20,7 @@ class BooksController < ApplicationController
     @book = Book.new(book_params)
 
     if @book.save
-      render json: @book, status: :created, location: @book
+      render json: @book, status: :created, location: api_v1_book_url(@book)
     else
       render json: @book.errors, status: :unprocessable_entity
     end
@@ -38,17 +38,18 @@ class BooksController < ApplicationController
   # DELETE /books/1
   def destroy
     @book.destroy!
+    head :no_content
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_book
-      @book = Book.find(params.expect(:id))
+      @book = Book.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def book_params
-      params.expect(book: [ :title, :author, :description ])
+      params.require(:book).permit(:title, :author, :description)
     end
 end
   end

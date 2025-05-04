@@ -1,6 +1,6 @@
 module Api
   module V1
-    class CommentsController < ApplicationController
+    class CommentsController < APIController
       before_action :set_comment, only: %i[show update destroy]
 
       # GET /comments
